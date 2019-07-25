@@ -1,0 +1,8 @@
+env
+*.pyc
+*~
+__pycache__
+.DS_Store
+db.sqlite3
+.vscode
+secrets.py
