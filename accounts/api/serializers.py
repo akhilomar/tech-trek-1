@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate
 from accounts.models import UserProfile
 
 class UserListSerializer(serializers.ModelSerializer):
-    payment_done = serializers.BooleanField(source='profile.payment_status')
-    last_solved = serializers.DateTimeField(source='profile.last_sovled')
+    payment_done = serializers.BooleanField(source='profile.payment_done')
+    last_solved = serializers.DateTimeField(source='profile.last_solved')
     current_question = serializers.IntegerField(source='profile.current_question')
 
     class Meta:
@@ -20,8 +20,8 @@ class UserListSerializer(serializers.ModelSerializer):
         ]
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    payment_done = serializers.BooleanField(source='profile.payment_status')
-    last_solved = serializers.DateTimeField(source='profile.last_sovled')
+    payment_done = serializers.BooleanField(source='profile.payment_done')
+    last_solved = serializers.DateTimeField(source='profile.last_solved')
     current_question = serializers.IntegerField(source='profile.current_question')
 
     class Meta:

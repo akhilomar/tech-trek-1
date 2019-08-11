@@ -1,7 +1,11 @@
 from django.contrib.auth.models import User
 from rest_framework import generics, views
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
-from .serializers import (
+from accounts.api.serializers import (
     UserListSerializer,
     UserDetailSerializer,
     UserCreateSerializer,
