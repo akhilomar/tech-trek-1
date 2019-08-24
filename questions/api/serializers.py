@@ -14,7 +14,10 @@ class QuestionListSerializer(serializers.ModelSerializer):
 class QuestionDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = [
+            'question',
+            'answer',
+        ]
 
 class QuestionUpdateSerializer(serializers.ModelSerializer):
     class Meta:
