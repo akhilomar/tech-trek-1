@@ -1,10 +1,11 @@
-from rest_framework import views
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, views
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from questions.models import Question
 
 from questions.api.serializers import (
     QuestionDetailSerializer,
+    QuestionSerializer
 )
 
 class GetQuestion(views.APIView):
@@ -32,3 +33,17 @@ class SubmitQuestion(views.APIView):
         else:
             is_correct = False
         return Response({"success": is_correct})
+
+class QuestionListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+    # TODO: Change the permission to superusers only
+    permission_classes = [AllowAny]
+
+class QuestionEditAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    
+    # TODO: change the permission to superusers only
+    permission_classes = [AllowAny]
