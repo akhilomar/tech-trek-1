@@ -1,9 +1,11 @@
 from django.urls import path
 
 from questions.api.views import (
-    Play
+    GetQuestion,
+    SubmitQuestion
 )
 
 urlpatterns = [
-    path('', Play.as_view(), name='play'),
+    path('', GetQuestion.as_view(), name='play'),
+    path('submit/', SubmitQuestion.as_view(), name='submit')
 ]

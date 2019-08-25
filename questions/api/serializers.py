@@ -1,15 +1,10 @@
 from rest_framework import serializers
 from questions.models import Question
 
-class QuestionListSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = [
-            'level',
-            'question',
-            'answer',
-            'level',
-        ]
+        fields = '__all__'
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,13 +13,3 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'question',
             'answer',
         ]
-
-class QuestionUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = '__all__'
-
-class QuestionCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = '__all__'
