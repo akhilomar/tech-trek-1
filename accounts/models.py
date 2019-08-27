@@ -21,3 +21,11 @@ class UserProfile(models.Model):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def create_superuser_profile(sender, instance, created, **kwargs):
+    if created and instance.is_superuser:
+        UserProfile.objects.create(
+            user=instance,
+            payment_done=True
+        )
