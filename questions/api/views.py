@@ -1,5 +1,5 @@
 from rest_framework import generics, views
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from questions.models import Question
 from accounts.models import UserProfile
@@ -19,6 +19,7 @@ class GetQuestion(views.APIView):
         except UserProfile.DoesNotExist:
             return Response({"error": "userprofile does not exist"})
         question = Question.objects.get(level=player.current_question)
+        # TODO: edit serializer to remove the answer field.
         serializer = QuestionDetailSerializer(question)
         return Response(serializer.data)
 
@@ -49,12 +50,10 @@ class QuestionListCreateAPIView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
-    # TODO: Change the permission to superusers only
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
 class QuestionEditAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     
-    # TODO: change the permission to superusers only
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]

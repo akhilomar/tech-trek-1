@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import generics, views
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -23,22 +23,24 @@ class UserDetailAPIView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
     lookup_field = 'username'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
 
 class UserDeleteAPIView(generics.DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
     lookup_field = 'username'
-    # permission_classes = [IsOwnerOrAdminOrReadOnly]
+    permission_classes = [IsAdminUser]
 
 class UserUpdateAPIView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserUpdateSerializer
     lookup_field = 'username'
+    permission_classes = [IsAdminUser]
 
 class UserListAPIView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserListSerializer
+    permission_classes = [IsAdminUser]
 
 class UserLoginAPIView(views.APIView):
     permission_classes = [AllowAny]
