@@ -2,6 +2,7 @@ from rest_framework import generics, views
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from utils.permissions import IsPaid
 from questions.models import Question
 from accounts.models import Player
 from datetime import datetime
@@ -13,10 +14,11 @@ from questions.api.serializers import (
 )
 
 class GetQuestion(views.APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated&IsPaid]
 
     def get(self, request, format=None):
         player = request.user
+        self.check_object_permissions(request, player)
         # TODO: add utility function for fetching question.
         question = Question.objects.get(level=player.current_question)
         serializer = GetQuestionSerializer(question)
@@ -25,6 +27,7 @@ class GetQuestion(views.APIView):
 
     def post(self, request, format=None):
         player = request.user
+        self.check_object_permissions(request, player)
         question = Question.objects.get(level=player.current_question)
 
         if request.data['answer'].lower() == question.tech_answer:
@@ -54,7 +57,7 @@ def leaderboard(request):
     """
 
     queryset = Player.objects.order_by("-score", "last_solved")\
-        .filter(is_superuser=False)
+        .filter(is_superuser=False, is_paid=True)
     serializer = LeaderboardSerializer(queryset, many=True)
 
     return Response(serializer.data)
