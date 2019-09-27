@@ -1,10 +1,12 @@
 from django.db import models
+from datetime import timedelta
 
 class Question(models.Model):
     question = models.CharField(max_length=200)
-    answer = models.CharField(max_length=50)
+    tech_answer = models.CharField(max_length=100)
+    nontech_answer = models.CharField(max_length=100)
     level = models.IntegerField(blank=True)
-    wait_time = models.DateTimeField(auto_now_add=True)
-    
+    wait_duration = models.DurationField(default=timedelta(seconds=13))
+
     def __str__(self):
         return self.question

@@ -6,10 +6,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = '__all__'
 
-class QuestionDetailSerializer(serializers.ModelSerializer):
+class GetQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = [
             'question',
-            'answer',
         ]

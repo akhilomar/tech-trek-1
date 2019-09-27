@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    # 'questions',
+    'questions',
     'rest_framework',
     # 'rest_framework.authtoken',
 ]
