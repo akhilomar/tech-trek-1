@@ -12,3 +12,10 @@ class GetQuestionSerializer(serializers.ModelSerializer):
         fields = [
             'question',
         ]
+
+class LeaderboardSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        return {
+            'player_name': obj.username,
+            'score': obj.score,
+        }
