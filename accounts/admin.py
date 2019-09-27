@@ -1,4 +1,16 @@
 from django.contrib import admin
-from .models import UserProfile
+from .models import Player
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm
 
-admin.site.register(UserProfile)
+class PlayerChangeForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        model = Player
+
+class PlayerUserAdmin(UserAdmin):
+    form = PlayerChangeForm
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('is_paid', 'current_question')}),
+    )
+
+admin.site.register(Player, PlayerUserAdmin)
