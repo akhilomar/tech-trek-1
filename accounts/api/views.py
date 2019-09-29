@@ -1,21 +1,32 @@
 from accounts.models import Player
-from rest_framework import generics, views
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework import generics, status, views
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 
 from accounts.api.serializers import (
     PlayerRegisterSerializer,
-    PlayerListSerializer
+    PlayerSerializer
 )
 
-class PlayerRegisterAPIView(generics.CreateAPIView):
-    serializer_class = PlayerRegisterSerializer
-    queryset = Player.objects.all()
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_player(request):
+    serializer = PlayerSerializer(request.user)
+    return Response(serializer.data)
+
+class PlayerRegisterAPIView(views.APIView):
+    """
+    Create a new user.
+    """
     permission_classes = [AllowAny]
 
-class PlayerListAPIView(generics.ListAPIView):
-    serializer_class = PlayerListSerializer
-    queryset = Player.objects.all()
-    permission_classes = [IsAdminUser]
+    def post(self, request, format=None):
+        serializer = PlayerRegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # from django.contrib.auth.models import User
 # from rest_framework import generics, views

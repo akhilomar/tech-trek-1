@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from rest_framework_simplejwt.tokens import RefreshToken
 from accounts.models import Player
 
 class PlayerRegisterSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField(write_only=True)
     username = serializers.SlugField(
         min_length=4,
         max_length=32,
@@ -27,13 +29,9 @@ class PlayerRegisterSerializer(serializers.ModelSerializer):
         )]
     )
 
-    class Meta:
-        model = Player
-        fields = [
-            'username',
-            'email',
-            'password',
-        ]
+    def get_token(self, obj):
+        refresh = RefreshToken.for_user(obj)
+        return str(refresh.access_token)
 
     def create(self, validated_data):
         username = validated_data['username']
@@ -48,16 +46,21 @@ class PlayerRegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-class PlayerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = [
             'username',
             'email',
-            'is_paid',
-            'last_solved',
-            'current_question',
+            'password',
         ]
+
+class PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = [
+            'username'
+        ]
+
 
 # from rest_framework import serializers
 # from django.contrib.auth.models import User
