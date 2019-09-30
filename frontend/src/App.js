@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import './components/App.css';
-import Register from './components/Register';
-import Login from './components/Login';
-import Avatar from './components/avatar';
+import './App.css';
+import Register from './components/EntryPage/Register'
+import Login from './components/EntryPage/Login';
+import Avatar from './components/EntryPage/avatar';
 
 class App extends Component{
   constructor(props){
@@ -12,31 +12,40 @@ class App extends Component{
       isRegisterOpen: false,
       isAvatarOpen: false,
     }
-
+    this.showAvatar=this.showAvatar.bind(this);
   }
   showlogin=()=>{
     this.setState({
       isLoginOpen: true,
-      isRegisterOpen: false
+      isRegisterOpen: false,
+      isAvatarOpen: false
     });
   }
   showRegister=()=>{
     this.setState({
       isLoginOpen: false,
-      isRegisterOpen: true
+      isRegisterOpen: true,
+      isAvatarOpen: false
     });
   }
-  showAvatar=()=>{
+  showAvatar(){
     this.setState({
       isLoginOpen:false,
       isRegisterOpen:false,
       isAvatarOpen: true
     });
+
   }
 render(){
+  if(this.props.isavataropen===true)
+  {
+    this.showAvatar();
+  }
   return(
+    <React.Fragment>
    <div className="centering">
-   <div className="root-container">
+     
+       <div className="root-container">
      <div className="box-controller">
        <div className={"controller " + (this.state.isLoginOpen? "selected-controller":"")} onClick={this.showlogin}>
          Login
@@ -45,13 +54,19 @@ render(){
          Register
        </div>
       </div>
+   
+
     <div className="box-container">
+  
       {this.state.isLoginOpen && <Login/>}
-      {this.state.isRegisterOpen && <Register/>}
+      {this.state.isRegisterOpen && <Register func={this.showAvatar}/>}
       {this.state.isAvatarOpen && <Avatar/>}
+      
     </div>
     </div>
     </div>
+    
+    </React.Fragment>
   )
 }
 }
