@@ -7,3 +7,4 @@ db.sqlite3
 .vscode
 secrets.py
 plsignore
+frontend/node_modules/
