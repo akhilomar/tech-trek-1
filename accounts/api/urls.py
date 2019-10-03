@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import (
 from accounts.api.views import (
     PlayerRegisterAPIView,
     PlayerListAPIView,
+    PlayerDashboardAPIView,
 )
 
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     path('api/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register/', PlayerRegisterAPIView.as_view(), name='register'),
     path('api/list/', PlayerListAPIView.as_view(), name='player-list'),
+    path('api/', PlayerDashboardAPIView.as_view(), name='dashboard'),
 ]
 
 # # from django.conf.urls import url
