@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 
 class Footer extends Component{
     constructor(props){
@@ -8,17 +8,15 @@ class Footer extends Component{
         };
     };
 
-
-render(){
-
-    return(
-        
-            <div className="footer">
-                <p>© Nibble Computer Society</p>
-            </div>
-      
-    );
-}
+    render() {
+        return (
+          <div>
+            <footer className="bg-primary text-white text-center footer">
+              <a href="/" className="text-light font-weight-bolder">	&copy; Nibble Computer Society</a>
+            </footer>
+          </div>
+        )
+      }
 }
 
 export default Footer;

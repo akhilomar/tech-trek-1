@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 import {
   Collapse,
@@ -6,13 +7,10 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  NavItem
+  } from 'reactstrap';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
@@ -29,8 +27,11 @@ export default class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Username</NavbarBrand>
+        <Navbar color="primary" fixed dark expand="md">
+
+          <NavbarBrand href="/">
+          <a className="user" href="#"><img src="https://i.pinimg.com/originals/27/47/ed/2747edad39a6a4e9fbcfbf3c53822649.png" alt="" className="nav-avatar"/>rajat verma</a></NavbarBrand>
+          
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -41,7 +42,10 @@ export default class Header extends React.Component {
                 <NavLink to="/Dashboard">Dashboard</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/Leaderboard">Leaderboard</NavLink>
+                <NavLink to="/Leaderboard" active>Leaderboard</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/Forum">Forum</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink to="/">Logout</NavLink>
@@ -53,3 +57,5 @@ export default class Header extends React.Component {
     );
   }
 }
+
+export default Header;
