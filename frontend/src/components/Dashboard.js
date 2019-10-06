@@ -41,24 +41,23 @@ class Dashboard extends Component{
       }
     render(){
         return(
-            <div>
-                <header>
-                    <Header />
-                </header>
-                <h1 style={{display: "flex",justifyContent:"center"}}>QUESTION</h1>
-                <div className="input-group">  
-                <Question />
-                <input type="text" className="login-input" placeholder="Your Answer"
-                onChange={this.onAnswerChange}
-                />
-                </div>
+            <div className="dashboard">
+                <Header />
                 <div>
-                {this.state.selectedError}
+                    <h1 style={{display: "flex",justifyContent:"center"}}>QUESTION</h1>
+                    <div className="input-group">  
+                        <Question />
+                        <input type="text" 
+                            className="login-input"
+                            placeholder="Your Answer"
+                            onChange={this.onAnswerChange}/>
+                    </div>
+                    <div>
+                        {this.state.selectedError}
+                    </div>
+                    <button className="login-btn" onClick={this.gettoken}>CHECK</button>
                 </div>
-                <button className="login-btn" onClick={this.gettoken}>CHECK</button>
-                <footer>
-                    <Footer />
-                </footer>    
+                <Footer />
             </div> 
         );
     }
