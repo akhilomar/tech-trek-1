@@ -10,6 +10,4 @@
 6. Run migrations using `python manage.py migrate`.
 7. `python manage.py runserver` and you're ready.
 
-## Setting up frontend 
-1. `npm install` to add all the packages of react
-2. `npn start` to run the frontend server
+### TODO: Add frontend setup instructions
