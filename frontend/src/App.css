@@ -68,7 +68,6 @@ body,
     visibility: visible;
 }
 
-//Header
 .header {
     text-align: center;
     padding: 5px;
@@ -187,13 +186,11 @@ body,
 /*avatar*/ 
 
 .avatar-grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-    grid-gap: 4rem;
-    width: 100%;
-    max-width: 1280px;
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: center; 
     margin:0 auto;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
 }
 @media(max-width: 30.625){
     .avatar-grid{
@@ -211,7 +208,7 @@ body,
 
 /*HEADER CSS*/
 
-.nav{
+/* .nav{
     display: flex;
     justify-content: flex-end;
     position: fixed;
@@ -223,10 +220,104 @@ body,
 .nav-list{
     display: flex;
     margin-right: 2rem;
+} */
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
-.logo{
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+.user:hover {
+  color: white;
+  text-decoration: none;
 }
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar {
+  padding: 0.1rem 1rem !important;
+}
+
+.nav-avatar {
+  width: 7vh;
+  margin: 0 5px;
+}
+
+.nav-item a {
+  color: white !important;
+  margin: 0 10px;
+}
+
+.nav-item a:hover{
+  text-decoration: none;
+}
+
+/* leaderboard */
+.avatar{
+  width: 8vh;
+}
+
+/* .leaderboard{
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+} */
+
+.userlist{
+  width: 60%;
+  margin: auto;
+  padding: 25px;
+}
+
+.avatar-column{
+  width: 20%;
+}
+
+.user-column{
+  width: 65%;
+}
+
+.score-column{
+  width: 15%;
+}
+
+.table td, .table th{
+  vertical-align: middle !important; 
+}
+
+tbody {
+  display:  block;
+  height: 320px;
+  overflow-y:scroll;
+}
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+table {
+  width: 400px;
+}
+
+@media only screen and (max-width: 800px) {
+  .userlist{
+    width: 95%;
+    padding: 8px;
+  }
+
+  .footer{
+    position: block !important;
+  }
+
+}
+
+/* footer */
+.footer {
+    width: 100%;
+    padding: 12px;
 }

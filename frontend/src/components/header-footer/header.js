@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+
+import {BrowserRouter as Router, Route,Link} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -7,12 +8,10 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  NavLink
+  } from 'reactstrap';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
@@ -26,25 +25,39 @@ export default class Header extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  clearLocal=()=>{
+    localStorage.clear("logintoken");
+  }
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Username</NavbarBrand>
+        <Navbar color="primary" fixed dark expand="md">
+
+          <NavbarBrand href="/">
+          <a className="user" href="#"><img src="https://i.pinimg.com/originals/27/47/ed/2747edad39a6a4e9fbcfbf3c53822649.png" alt="" className="nav-avatar"/>rajat verma</a></NavbarBrand>
+          
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink to="/Rules">Rules</NavLink>
+                <NavLink>
+                  <Link to="/Rules">Rules</Link>
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/Dashboard">Dashboard</NavLink>
+              <NavLink>
+                <Link to="/Dashboard">Dashboard</Link>
+              </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/Leaderboard">Leaderboard</NavLink>
+              <NavLink>
+                <Link to="/Leaderboard" active>Leaderboard</Link>
+              </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/">Logout</NavLink>
+              <NavLink>
+                <Link to="/" onClick={this.clearLocal.bind(this)}>Logout</Link>
+              </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
@@ -53,3 +66,5 @@ export default class Header extends React.Component {
     );
   }
 }
+
+export default Header;

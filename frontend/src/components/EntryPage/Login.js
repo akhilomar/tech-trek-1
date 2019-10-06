@@ -1,8 +1,17 @@
 import React,{Component} from 'react';
-
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
-
+import { browserHistory } from 'react-router';
+import {PrivateRoute} from '../PrivateRoute';
+import Rules from '../Rules';
+import { withRouter } from "react-router-dom";
+import axios from 'axios';
+import { BrowserRouter, Route ,Link} from 'react-router-dom';
+import {NavLink,NavItem} from 'reactstrap';
+import { Redirect } from 'react-router-dom'
 import '../../App.css';
+import PropTypes from 'prop-types'
+import { setInterval } from 'timers';
+
+
 
 class Login extends Component{
 constructor(props){
@@ -13,6 +22,35 @@ constructor(props){
         errors: []
     };
 }
+
+componentDidMount(){
+    this.gettoken();
+    this.interval=setInterval(()=>{this.gettoken();},180000);
+}
+componentWillMount(){
+    clearInterval(this.interval);
+}
+gettoken=()=>{ 
+    fetch('http://127.0.0.1:8000/accounts/api/token/',{
+   method:'post',
+   headers: {'Content-Type' : 'application/json'},
+   body: JSON.stringify({
+       username: this.state.username,
+       password: this.state.password 
+   }),
+
+}).then((response)=>response.json())
+.then((responseJson)=>{
+       const token=responseJson.access
+       localStorage.setItem('logintoken',token);
+}).catch((error)=>{console.log(error)})
+}
+
+componentDidUpdate(){
+  
+     this.gettoken();
+}
+
 validation=(elm,msg)=>{
 this.setState((prevState)=>({errors:[...prevState.errors,{elm,msg}]}));
 }
@@ -38,20 +76,25 @@ onPasswordChange=(e)=>{
     this.clearValidation("password");
 }
 
-submitLogin=(e)=>{
-    if(this.state.username==="" || this.state.password===""){
-        if(this.state.username===""){
-            this.validation("username","Please enter username")
-        }
-        if(this.state.password===""){
-            this.validation("password","Please enter password to verify security")
-        }
-}
-    else{
-      
-    }
+
   
+
+handleloginJwt=()=>{
+    const res= fetch('http://127.0.0.1:8000/accounts/api/token/',{
+        method:'post',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password 
+        }),
+
+    }).then((response)=>response.json())
+    .then((responseJson)=>{
+            const token=responseJson.access
+            localStorage.setItem('logintoken',token);
+    }).catch((error)=>{console.log(error)})
 }
+
 
 render(){
     let usernameErr=null, passwordErr=null;
@@ -85,16 +128,17 @@ render(){
                  <small className="danger-error">{passwordErr?passwordErr:""}</small>
             </div>
           
-            <NavLink to="/Rules">
-             <button
+          <NavLink>
+            
+            <Link to='/Rules' >
+            <button 
                 type="button"
-                className="login-btn"
-                onClick={this
-                .submitLogin
-                .bind(this)}>Login</button>
+                className="login-btn"         
+               >Login</button>
+            </Link>
             </NavLink>
           
-         
+               
             </div>
         </div>
      

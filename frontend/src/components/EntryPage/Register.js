@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
+import axios from 'axios';
 import '../../App.css';
+import { async } from 'q';
+import { throwStatement } from '@babel/types';
 class Register extends Component{
 constructor(props){
     super(props);
@@ -13,10 +16,41 @@ constructor(props){
         mobile: "",
         email: "",
         errors: [],
-
     };
     
 }
+
+handleJwt=()=>{
+    const res= fetch('http://127.0.0.1:8000/accounts/api/register/',{
+        method:'post',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password 
+        }),
+
+    }).then((response)=>response.json())
+    .then((responseJson)=>{
+            const token=responseJson.token.access
+            localStorage.setItem('registertoken',token);
+    }).catch((error)=>{console.log(error)});
+    // axios.post('http://127.0.0.1:8000/accounts/api/register/', {
+    //     username: this.state.username,
+    //     email: this.state.email,
+    //     password: this.state.password
+    //   })
+    //   .then((response) => {
+    //      const jwtvalue=JSON.parse(response)
+    //      const jwt=jwtvalue['data']
+    //      console.log(jwt)
+    //      localStorage.setItem('token',jwt)
+      
+    //   }, (error) => {
+    //     //console.log(error);
+    //   });
+}
+
 Validation=(elm, msg)=>{
     this.setState((prevState)=>({errors: [...prevState.errors, {elm, msg}]}));
 }
@@ -86,7 +120,8 @@ submitRegister=(e)=>{
     if(this.state.name!=="" && this.state.username!=="" && this.state.year!=="" && this.state.branch!==""
      && this.state.password!=="" && this.state.cpassword!=="" && this.state.mobile!=="" && this.state.email!==""
     ){
-        this.props.func()
+        this.handleJwt();
+        this.props.func();
     }
 
 }
