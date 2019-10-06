@@ -19,6 +19,13 @@ class GetQuestion(views.APIView):
     def get(self, request, format=None):
         player = request.user
         self.check_object_permissions(request, player)
+        
+        tz_info = obj.unlock_time.tzinfo
+        time_left = (obj.unlock_time - datetime.now(tz_info)).total_seconds()
+
+        if time_left >= 0:
+            return Response("time_left": time_left)
+        
         # TODO: add utility function for fetching question.
         question = Question.objects.get(level=player.current_question)
         serializer = GetQuestionSerializer(question)
@@ -28,6 +35,13 @@ class GetQuestion(views.APIView):
     def post(self, request, format=None):
         player = request.user
         self.check_object_permissions(request, player)
+
+        tz_info = obj.unlock_time.tzinfo
+        time_left = (obj.unlock_time - datetime.now(tz_info)).total_seconds()
+
+        if time_left >= 0:
+            return Response({"time_left": time_left})
+        
         question = Question.objects.get(level=player.current_question)
 
         if request.data['answer'].lower() == question.tech_answer:
@@ -38,7 +52,6 @@ class GetQuestion(views.APIView):
             player.save()
 
             is_correct = True
-        elif request.data['answer'].lower() == question.nontech_answer:
             player.current_question = player.current_question + 1
             player.score = player.score + 5
             player.save()
@@ -61,15 +74,3 @@ def leaderboard(request):
     serializer = LeaderboardSerializer(queryset, many=True)
 
     return Response(serializer.data)
-
-# class QuestionListCreateAPIView(generics.ListCreateAPIView):
-#     queryset = Question.objects.all()
-#     serializer_class = QuestionSerializer
-
-#     permission_classes = [IsAdminUser]
-
-# class QuestionEditAPIView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Question.objects.all()
-#     serializer_class = QuestionSerializer
-    
-#     permission_classes = [IsAdminUser]

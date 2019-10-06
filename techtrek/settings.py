@@ -47,6 +47,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'accounts.Player'
 
+USE_TZ = True
+TIME_ZONE = 'Asia/Kolkata'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
