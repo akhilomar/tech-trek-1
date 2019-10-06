@@ -20,11 +20,11 @@ class GetQuestion(views.APIView):
         player = request.user
         self.check_object_permissions(request, player)
         
-        tz_info = obj.unlock_time.tzinfo
-        time_left = (obj.unlock_time - datetime.now(tz_info)).total_seconds()
+        tz_info = player.unlock_time.tzinfo
+        time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
 
         if time_left >= 0:
-            return Response("time_left": time_left)
+            return Response({"time_left": time_left})
         
         # TODO: add utility function for fetching question.
         question = Question.objects.get(level=player.current_question)
@@ -36,8 +36,8 @@ class GetQuestion(views.APIView):
         player = request.user
         self.check_object_permissions(request, player)
 
-        tz_info = obj.unlock_time.tzinfo
-        time_left = (obj.unlock_time - datetime.now(tz_info)).total_seconds()
+        tz_info = player.unlock_time.tzinfo
+        time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
 
         if time_left >= 0:
             return Response({"time_left": time_left})
