@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from .secrets import KEY
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,9 +41,13 @@ REST_FRAMEWORK = {
     ]
 }
 
-# CORS HEADERS
+# CORS Headers
 CORS_ORIGIN_ALLOW_ALL = True
 
+# JWT Authentication
+SIMEPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50),
+}
 # Application definition
 
 AUTH_USER_MODEL = 'accounts.Player'

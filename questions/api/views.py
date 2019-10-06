@@ -14,7 +14,7 @@ from questions.api.serializers import (
 )
 
 class GetQuestion(views.APIView):
-    permission_classes = [IsAuthenticated&IsPaid]
+    permission_classes = [IsAuthenticated, IsPaid]
 
     def get(self, request, format=None):
         player = request.user
@@ -22,7 +22,7 @@ class GetQuestion(views.APIView):
         
         tz_info = player.unlock_time.tzinfo
         time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
-
+        print(time_left)
         if time_left >= 0:
             return Response({"time_left": time_left})
         
@@ -50,10 +50,13 @@ class GetQuestion(views.APIView):
             player.unlock_time = datetime.now() + question.wait_duration
             player.last_solved = datetime.now()
             player.save()
-
             is_correct = True
+
+        if request.data['answer'].lower() == question.nontech_answer:
             player.current_question = player.current_question + 1
             player.score = player.score + 5
+            player.unlock_time = datetime.now() + question.wait_duration
+            player.last_solved = datetime.now()
             player.save()
 
             is_correct = True

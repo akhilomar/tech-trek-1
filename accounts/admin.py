@@ -10,7 +10,7 @@ class PlayerChangeForm(UserChangeForm):
 class PlayerUserAdmin(UserAdmin):
     form = PlayerChangeForm
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('is_paid', 'current_question')}),
+        (None, {'fields': ('is_paid', 'current_question', 'last_solved', 'unlock_time')}),
     )
 
 admin.site.register(Player, PlayerUserAdmin)
