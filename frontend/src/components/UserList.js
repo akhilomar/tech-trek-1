@@ -7,7 +7,7 @@ class UserList extends React.Component {
       return (
         <tr>
           <td className="avatar-column"><img src="https://i.pinimg.com/originals/27/47/ed/2747edad39a6a4e9fbcfbf3c53822649.png" alt="" className="avatar"/></td>
-          <td className="user-column">{listitem.player_name}  </td>
+          <td className="user-column">{listitem.player_name}</td>
           <td className="score-column">{listitem.score}</td>
         </tr>
       )
@@ -16,7 +16,7 @@ class UserList extends React.Component {
     return (
       <div className="userlist">
         <div>
-          <h1 className="text-center mb-3">LEADERBOARD</h1>
+          <h1 className="text-center mb-3 component-heading">LEADERBOARD</h1>
           <Table hover>
             <thead className="thead-dark">
               <tr>
