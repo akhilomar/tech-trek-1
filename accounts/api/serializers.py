@@ -29,6 +29,16 @@ class PlayerRegisterSerializer(serializers.ModelSerializer):
         )]
     )
 
+    avatar_no = serializers.IntegerField(default=1)
+
+    def validate_avatar_no(self, value):
+        """
+        Check that the avatar no. is among the available avatars.
+        """
+        if value > 6:
+            raise serializers.ValidationError("The avatar specified is not avaliable.")
+        return value
+
     def get_token(self, obj):
         refresh = RefreshToken.for_user(obj)
 
@@ -44,6 +54,7 @@ class PlayerRegisterSerializer(serializers.ModelSerializer):
             'email',
             'password',
             'token',
+            'avatar_no',
         ]
 
     def create(self, validated_data):
