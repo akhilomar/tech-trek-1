@@ -24,6 +24,7 @@ constructor(props){
 }
 
 componentDidMount(){
+    localStorage.setItem('logintoken','');
     this.gettoken();
     this.interval=setInterval(()=>{this.gettoken();},180000);
 }
