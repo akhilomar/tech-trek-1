@@ -8,6 +8,8 @@ class Player(AbstractUser):
     unlock_time = models.DateTimeField(default=timezone.now)
     current_question = models.IntegerField(default=1)
     score = models.IntegerField(default=0)
-    
+    avatar = models.ImageField(default="1.png")
+    avatar_no = models.PositiveIntegerField(default=1)
+
     def __str__(self):
         return self.username

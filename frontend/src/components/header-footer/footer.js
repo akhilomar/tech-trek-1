@@ -11,7 +11,7 @@ class Footer extends Component{
     render() {
         return (
           <div>
-            <footer className="bg-primary text-white text-center footer">
+            <footer className="bg-primary text-white text-center page-footer">
               <a href="/" className="text-light font-weight-bolder">	&copy; Nibble Computer Society</a>
             </footer>
           </div>

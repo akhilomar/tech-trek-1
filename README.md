@@ -9,3 +9,5 @@
 5. Run `pip install -r requirements.txt` to install the dependencies.
 6. Run migrations using `python manage.py migrate`.
 7. `python manage.py runserver` and you're ready.
+
+### TODO: Add frontend setup instructions
