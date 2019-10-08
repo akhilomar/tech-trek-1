@@ -9,13 +9,28 @@ class Dashboard extends Component{
         this.state={
             answer:"",
             errorMsg: ["Oops!! Try Again","You are almost there","Better Luck Next Time","Wrong!!","Try! Try! Try!","Far from Bingo"],
-            selectedError: ''
+            successMsg: ["Bingo","Congratulations","Correct","Target Accomplish","One step ahead","Level up","Hurray!!!","Yay"],
+            selectedError: '',
+            selectedSuccess:'',
+            currQ:"",
+            score:"",
+        
         };
     };
+
+    
+    componentDidMount(){
+        this.gettingDetails();
+    }
+    componentDidUpdate(){
+      this.gettingDetails();
+        
+    }
     onAnswerChange=(e)=>{
         this.setState({answer: e.target.value});
+      
     }
-    gettoken=()=>{ 
+    gettoken=()=>{
         const localtoken=localStorage.getItem('logintoken')
         fetch('http://127.0.0.1:8000/questions/',{
        method:'post',
@@ -26,38 +41,90 @@ class Dashboard extends Component{
     
     }).then((response)=>response.json())
     .then((responseJson)=>{
-        if(responseJson.success===false)
+        if(responseJson.success===false && this.state.answer.length>0)
         {
+            this.setState({
+                selectedSuccess:''
+            })
            this.getRandomErr();
         }
-        
+        else
+        {
+            this.setState({
+                selectedError:''
+            })
+            this.getRandomSuccess();
+        }
+      
     }).catch((error)=>{console.log(error)})
+ 
+        this.refs.answer.value="";
+     
+   
     }
-    getRandomErr(){
+    getRandomSuccess=()=>{
+        var item = this.state.successMsg[Math.floor(Math.random()*this.state.successMsg.length)];
+        this.setState({
+            selectedSuccess: item,
+        })
+        
+      }
+    getRandomErr=()=>{
         var item = this.state.errorMsg[Math.floor(Math.random()*this.state.errorMsg.length)];
         this.setState({
             selectedError: item,
         })
+        
+      }
+    gettingDetails=()=>{
+        const localtoken=localStorage.getItem('logintoken')
+        fetch('http://127.0.0.1:8000/accounts/api/', {
+          method: 'GET',
+          headers : { 
+            'Authorization' : `Bearer ${localtoken}`
+          }
+      })
+      .then((res) => res.json())
+      .then((response) => {
+          this.setState({
+            currQ: response.current_question,
+            score: response.score
+          })
+      })
       }
     render(){
+       
+  
         return(
             <div className="dashboard">
                 <Header />
-                <div>
-                    <h1 style={{display: "flex",justifyContent:"center"}}>QUESTION</h1>
-                    <div className="input-group">  
+                
+                <div style={{margin:"auto"}} >
+                    <h1>QUESTION</h1>
+                    <div className="input-group" style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>  
                         <Question />
-                        <input type="text" 
-                            className="login-input"
-                            placeholder="Your Answer"
+                        <input style={{width: "50%"}} type="text"                             
+                            placeholder="Your Answer" ref="answer"
                             onChange={this.onAnswerChange}/>
                     </div>
-                    <div>
+                    <div style={{color:"red"}}>
                         {this.state.selectedError}
                     </div>
+                    <div style={{color:"green"}}>
+                        {this.state.selectedSuccess}
+                    </div>
                     <button className="login-btn" onClick={this.gettoken}>CHECK</button>
-                </div>
-                <Footer />
+                    <br/>
+                    <div style={{marginTop:"2rem"}}>
+                     Level : {this.state.currQ}
+                     <br/>
+                     Score: {this.state.score}
+                    </div>
+                    </div>          
+                    
+
+                
+                <Footer/>
             </div> 
         );
     }

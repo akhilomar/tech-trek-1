@@ -21,9 +21,7 @@ class Question extends Component {
            })
         }).catch((error)=>{console.log(error)})
     }
-    componentDidMount(){
-        this.questionAccess();
-}
+ 
 componentDidUpdate(){
     this.questionAccess();
 }

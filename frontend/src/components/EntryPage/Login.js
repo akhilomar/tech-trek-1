@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import {PrivateRoute} from '../PrivateRoute';
 import Rules from '../Rules';
 import { withRouter } from "react-router-dom";
-import axios from 'axios';
+
 import { BrowserRouter, Route ,Link} from 'react-router-dom';
 import {NavLink,NavItem} from 'reactstrap';
 import { Redirect } from 'react-router-dom'
@@ -24,6 +24,7 @@ constructor(props){
 }
 
 componentDidMount(){
+    localStorage.setItem('logintoken','');
     this.gettoken();
     this.interval=setInterval(()=>{this.gettoken();},180000);
 }
