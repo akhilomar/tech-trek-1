@@ -30,9 +30,9 @@ class GetQuestion(views.APIView):
         # TODO: add utility function for fetching question.
         question = Question.objects.get(level=player.current_question)
         serializer = GetQuestionSerializer(question)
-        if serializer.is_valid():
-            return Response(serializer.data, status=HTTP_200_OK)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        # if serializer.is_valid():
+        return Response(serializer.data, status=HTTP_200_OK)
+        # return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
         player = request.user
