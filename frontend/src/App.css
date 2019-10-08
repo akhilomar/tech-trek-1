@@ -243,6 +243,9 @@ body,
 
 .nav-item a {
   color: white !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 5px;
 }
 
 .nav-item a:hover{
@@ -252,7 +255,9 @@ body,
 /* rules */
 
 .component-heading{
-  letter-spacing: 0.2ch;
+  letter-spacing: 0.35ch;
+  font-weight: bolder;
+  margin-bottom: 20px;
 }
 
 .rules, .leaderboard, .dashboard, .forum{
@@ -260,15 +265,19 @@ body,
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  /* background: url();
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 .rules-container{
   height: 64vh;
   width: 55vw;
-  margin: 16px auto;
+  margin: auto;
   overflow-y: scroll;
-  background: #f3f3f3;
-  padding: 10px 20px;
+  background: rgb(243,243,243, 0.5);
+  padding: 24px;
   line-height: 1.5;
   letter-spacing: 0.02ch;
   border-radius: 10px;
@@ -297,13 +306,6 @@ body,
 .avatar{
   width: 8vh;
 }
-
-/* .leaderboard{
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-} */
 
 .userlist{
   width: 60%;
@@ -343,6 +345,36 @@ thead, tbody tr {
   width: 400px;
 } */
 
+/* dashboard */
+
+.dashboard-content{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.badge-grid{
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.badge-grid > div{
+  padding: 10px;
+}
+
+.badge-grid p{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.badge-image{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
 /* footer */
 .page-footer {
   width: 100%;
@@ -371,6 +403,20 @@ thead, tbody tr {
 
   .navbar li{
     padding: 3px 0;
+  }
+
+  .dashboard-content{
+    flex-direction: column;
+  }
+
+  .question-container{
+    text-align: center;
+    margin: 25px 10px;
+  }
+
+  .question-container input{
+    width: 80% !important; 
+    margin: auto;
   }
 
 }

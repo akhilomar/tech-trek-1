@@ -3,6 +3,7 @@ import Header from './header-footer/header';
 import Footer from './header-footer/footer';
 import Question from './Question';
 import {random} from 'lodash';
+import Achievements from './Achievements';
 class Dashboard extends Component{
     constructor(props){
         super(props);
@@ -98,31 +99,38 @@ class Dashboard extends Component{
         return(
             <div className="dashboard">
                 <Header />
-                
-                <div style={{margin:"auto"}} >
-                    <h1>QUESTION</h1>
-                    <div className="input-group" style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>  
-                        <Question />
-                        <input style={{width: "50%"}} type="text"                             
-                            placeholder="Your Answer" ref="answer"
-                            onChange={this.onAnswerChange}/>
+                            
+                <div className="dashboard-content">
+                    <div className="question-container">
+                        <div style={{margin:"auto"}} >
+                            <h1>QUESTION</h1>
+                            <h3>Tier:</h3>
+                            <div className="input-group" style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>  
+                                <Question />
+                                {/* <h2>What is the full form of JSS Noida</h2> */}
+                                <input style={{width: "400px", fontSize: "1.5rem"}} type="text"                             
+                                    placeholder="I seek an Answer...." ref="answer"
+                                    onChange={this.onAnswerChange}/>
+                            </div>
+                            <div style={{color:"red"}}>
+                                {this.state.selectedError}
+                            </div>
+                            <div style={{color:"green"}}>
+                                {this.state.selectedSuccess}
+                            </div>
+                            <button className="login-btn" onClick={this.gettoken}>CHECK</button>
+                            <br/>
+                        </div>
                     </div>
-                    <div style={{color:"red"}}>
-                        {this.state.selectedError}
-                    </div>
-                    <div style={{color:"green"}}>
-                        {this.state.selectedSuccess}
-                    </div>
-                    <button className="login-btn" onClick={this.gettoken}>CHECK</button>
-                    <br/>
-                    <div style={{marginTop:"2rem"}}>
-                     Level : {this.state.currQ}
-                     <br/>
-                     Score: {this.state.score}
-                    </div>
-                    </div>          
-                    
 
+                    <div>
+                        <h2 className="text-center text-primary">0</h2>
+                        <h3 className="text-center font-weight-bold">Level : {this.state.currQ} &nbsp; Score: {this.state.score}</h3>
+                        <hr />
+                        <h3 className="text-center font-weight-bold">Achievements</h3>
+                        <Achievements />
+                    </div>
+                </div>
                 
                 <Footer/>
             </div> 
