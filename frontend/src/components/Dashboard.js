@@ -19,12 +19,9 @@ class Dashboard extends Component{
     };
 
     
+    
     componentDidMount(){
-        this.gettingDetails();
-    }
-    componentDidUpdate(){
-      this.gettingDetails();
-        
+      this.gettingDetails();        
     }
     onAnswerChange=(e)=>{
         this.setState({answer: e.target.value});
