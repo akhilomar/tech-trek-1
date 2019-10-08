@@ -104,13 +104,14 @@ class Dashboard extends Component{
                     <div className="question-container">
                         <div style={{margin:"auto"}} >
                             <h1>QUESTION</h1>
-                            <h3>Tier:</h3>
+                            <h4>Tier:</h4>
                             <div className="input-group" style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}}>  
                                 <Question />
-                                {/* <h2>What is the full form of JSS Noida</h2> */}
-                                <input style={{width: "400px", fontSize: "1.5rem"}} type="text"                             
+                                <input 
+                                    className="answer-block"
+                                    type="text"                             
                                     placeholder="I seek an Answer...." ref="answer"
-                                    onChange={this.onAnswerChange}/>
+                                    onChange={this.onAnswerChange} />
                             </div>
                             <div style={{color:"red"}}>
                                 {this.state.selectedError}

@@ -272,13 +272,13 @@ body,
 }
 
 .rules-container{
-  height: 64vh;
+  height: 70vh;
   width: 55vw;
   margin: auto;
   overflow-y: scroll;
   background: rgb(243,243,243, 0.5);
   padding: 24px;
-  line-height: 1.5;
+  line-height: 2;
   letter-spacing: 0.02ch;
   border-radius: 10px;
 }
@@ -353,6 +353,16 @@ thead, tbody tr {
   flex-direction: row;
 }
 
+.answer-block{
+  width: 450px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: rgb(243,243,243, 0.5);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
 .badge-grid{
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
@@ -372,13 +382,21 @@ thead, tbody tr {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  border: 2px solid blue;
   margin: 10px;
 }
 
 /* footer */
 .page-footer {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
+  font-size: 20px;
+  letter-spacing: 0.1ch;
+}
+
+.page-footer .text-light:hover{
+  color: white !important;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 800px) {
