@@ -1,6 +1,7 @@
 from rest_framework import generics, views
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.decorators import api_view
 from utils.permissions import IsPaid
 from questions.models import Question
@@ -29,8 +30,9 @@ class GetQuestion(views.APIView):
         # TODO: add utility function for fetching question.
         question = Question.objects.get(level=player.current_question)
         serializer = GetQuestionSerializer(question)
-
+        # if serializer.is_valid():
         return Response(serializer.data)
+        # return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
         player = request.user
