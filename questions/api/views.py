@@ -31,7 +31,7 @@ class GetQuestion(views.APIView):
         question = Question.objects.get(level=player.current_question)
         serializer = GetQuestionSerializer(question)
         # if serializer.is_valid():
-        return Response(serializer.data, status=HTTP_200_OK)
+        return Response(serializer.data)
         # return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
