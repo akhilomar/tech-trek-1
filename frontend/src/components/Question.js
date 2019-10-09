@@ -27,7 +27,7 @@ componentDidUpdate(){
 }
     render() {
         return(
-            <div>
+            <div className="question">
                {this.state.question}
             </div>
         )

@@ -234,6 +234,8 @@ body,
 
 .navbar {
   padding: 0.1rem 1rem !important;
+  background-color: rgb(220,220,220, 0.35);  
+  color: white !important;
 }
 
 .nav-avatar {
@@ -243,6 +245,9 @@ body,
 
 .nav-item a {
   color: white !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 5px;
 }
 
 .nav-item a:hover{
@@ -252,26 +257,34 @@ body,
 /* rules */
 
 .component-heading{
-  letter-spacing: 0.2ch;
+  letter-spacing: 0.35ch;
+  font-weight: bolder;
+  margin-bottom: 20px;
 }
 
 .rules, .leaderboard, .dashboard, .forum{
   height: 100vh;
   display: flex;
+  color: #fff !important;
   justify-content: space-between;
   flex-direction: column;
+  background: url(https://images.unsplash.com/photo-1477516561410-f0b5dd8319e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .rules-container{
-  height: 64vh;
+  height: 72vh;
   width: 55vw;
-  margin: 16px auto;
+  margin: auto;
   overflow-y: scroll;
-  background: #f3f3f3;
-  padding: 10px 20px;
-  line-height: 1.5;
+  background: rgb(243,243,243, 0.5);
+  padding: 24px;
+  line-height: 2;
   letter-spacing: 0.02ch;
   border-radius: 10px;
+  color: black;
 }
 
 /* width */
@@ -298,13 +311,6 @@ body,
   width: 8vh;
 }
 
-/* .leaderboard{
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-} */
-
 .userlist{
   width: 60%;
   margin: auto;
@@ -329,8 +335,25 @@ body,
 
 tbody {
   display:  block;
-  height: 57vh;
+  height: 54vh;
   overflow-y:scroll;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* width */
+tbody::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+tbody::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+tbody::-webkit-scrollbar-thumb {
+  background: #389BCF; 
 }
 
 thead, tbody tr {
@@ -343,10 +366,89 @@ thead, tbody tr {
   width: 400px;
 } */
 
+/* dashboard */
+
+.dashboard-content{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.question, .answer-block{
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: rgb(243,243,243, 0.5);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin: 8px 0;
+  color: #fff;
+}
+
+.answer-block::placeholder{
+  color: #fff;
+}
+
+.answer-block:focus {
+  outline: none;
+}
+
+.question{
+  width: 640px;
+}
+
+.answer-block {
+  width: 500px;
+  margin-right: 10px;
+}
+
+.answer-button{
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 8px 18px;
+  color: #fff;
+}
+
+.styled-hr{
+  border-top: 1px solid rgb(8, 119, 248);
+  width: 75%;
+}
+
+.badge-grid{
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.badge-grid > div{
+  padding: 16px;
+}
+
+.badge-grid p{
+  text-align: center;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.badge-image{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid blue;
+  margin: 4px;
+}
+
 /* footer */
 .page-footer {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
+  font-size: 20px;
+  letter-spacing: 0.1ch;
+}
+
+.page-footer .text-light:hover{
+  color: white !important;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 800px) {
@@ -371,6 +473,31 @@ thead, tbody tr {
 
   .navbar li{
     padding: 3px 0;
+  }
+
+  .dashboard-content{
+    flex-direction: column;
+  }
+
+  .question-container{
+    text-align: center;
+    margin: 25px auto;
+    width: 90%;
+  }
+
+  .question{
+    width: 100%;
+    margin: 10px auto;
+    text-align: left;
+  }
+
+  .question-container input{
+    width: 100% !important; 
+    margin: 10px auto;
+  }
+
+  .badge-grid > div{
+    padding: 10px;
   }
 
 }
