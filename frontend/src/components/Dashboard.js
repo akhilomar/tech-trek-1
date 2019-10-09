@@ -4,6 +4,7 @@ import Footer from "./header-footer/footer";
 import Question from "./Question";
 import { random } from "lodash";
 import Achievements from "./Achievements";
+import Timer from './timer'
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,10 @@ class Dashboard extends Component {
       selectedSuccess: "",
       currQ: "",
       score: "",
-      question: ""
+      question: "",
+      isTimeLeft:false,
+      remainingTime:0
+
     };
   }
 
@@ -46,10 +50,20 @@ class Dashboard extends Component {
       .then(responseJson => {
         const ques =
           responseJson && responseJson.detail && responseJson.detail.question;
+          
+        if(responseJson.isTimeLeft===true){
+          this.setState({
+            isTimeLeft:true,
+            remainingTime: responseJson.detail.time_left 
+          })
+            
+        }
+        else{
+          this.setState({
+            question: ques
+          });
+        }
 
-        this.setState({
-          question: ques
-        });
       })
       .catch(error => {
         console.log(error);
@@ -74,7 +88,8 @@ class Dashboard extends Component {
     this.setState({ answer: e.target.value });
   };
 
-  answerSubmit = () => {
+  answerSubmit = (e) => {
+    e.preventDefault();
     const localtoken = localStorage.getItem("logintoken");
 
     fetch("http://127.0.0.1:8000/questions/", {
@@ -105,10 +120,20 @@ class Dashboard extends Component {
                 responseJson &&
                 responseJson.detail &&
                 responseJson.detail.question;
-
+              if(responseJson.isTimeLeft===true){
+                this.setState({
+                  isTimeLeft:true,
+                  remainingTime: responseJson.detail.time_left 
+                })
+            
+              }
+              else{
               this.setState({
                 question: ques
               });
+            }
+            
+
             })
             .catch(error => {
               console.log(error);
@@ -132,6 +157,7 @@ class Dashboard extends Component {
             selectedError: ""
           });
           this.getRandomSuccess();
+          
         }
       })
       .catch(error => {
@@ -140,6 +166,40 @@ class Dashboard extends Component {
 
     this.refs.answer.value = "";
   };
+
+  displayQuestion = () => {
+    const localtoken = localStorage.getItem("logintoken");
+
+    fetch("http://127.0.0.1:8000/questions/", {
+      method: "get",
+      headers: { Authorization: `Bearer ${localtoken}` }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        const ques =
+          responseJson &&
+          responseJson.detail &&
+          responseJson.detail.question;
+        if(responseJson.isTimeLeft===true){
+          this.setState({
+            isTimeLeft:true,
+            remainingTime: responseJson.detail.time_left 
+          })
+      
+        }
+        else{
+        this.setState({
+          isTimeLeft: false,
+          question: ques
+        });
+      }
+      
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   getRandomSuccess = () => {
     var item = this.state.successMsg[
@@ -159,6 +219,7 @@ class Dashboard extends Component {
   };
 
   render() {
+    console.log(this.state.remainingTime)
     return (
       <div className="dashboard">
         <Header />
@@ -166,24 +227,36 @@ class Dashboard extends Component {
         <div className="dashboard-content">
           <div className="question-container">
             <div style={{ margin: "auto" }}>
-              <h1 className="font-weight-bold">QUESTION</h1>
-              <h4 className="text-left">Tier:</h4>
-              <div className="input-group d-inline">
+
+              <div className="input-group d-inline"> {
+              
+              this.state.isTimeLeft ?  <Timer displayQuestion={this.displayQuestion} time={Math.ceil(this.state.remainingTime)}/> : (
+              <>
+                <h1 className="font-weight-bold">QUESTION</h1>
+              <  h4 className="text-left">Tier:</h4>
                 <Question ques={this.state.question} />
+                <form onSubmit={this.answerSubmit}> 
                 <input
                   className="answer-block"
                   type="text"
                   placeholder="I seek an Answer...."
                   ref="answer"
-                  onChange={this.onAnswerChange}
+                  onChange={this.onAnswerChange} required
                 />
-              </div>
+           
+            
+              
               <button
                 className="login-btn answer-button"
-                onClick={this.answerSubmit}
+               
               >
                 CHECK
               </button>
+              </form>
+              </>
+              )}
+              </div>
+        
               <div style={{ color: "red" }}>{this.state.selectedError}</div>
               <div style={{ color: "green" }}>{this.state.selectedSuccess}</div>
               <br />
