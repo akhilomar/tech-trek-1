@@ -14,6 +14,11 @@ from questions.api.serializers import (
     LeaderboardSerializer,
 )
 
+# class Dashboard(views.APIView):
+#     permission_classes = [IsAuthenticated, IsPaid]
+
+    
+
 class GetQuestion(views.APIView):
     permission_classes = [IsAuthenticated, IsPaid]
 
@@ -62,7 +67,7 @@ class GetQuestion(views.APIView):
                     "time_left": time_left,
                 }
             })
-        
+
         question = Question.objects.get(level=player.current_question)
 
         if request.data['answer'].lower() == question.tech_answer:
@@ -73,7 +78,7 @@ class GetQuestion(views.APIView):
             player.save()
             is_correct = True
 
-        if request.data['answer'].lower() == question.nontech_answer:
+        elif request.data['answer'].lower() == question.nontech_answer:
             player.current_question = player.current_question + 1
             player.score = player.score + 5
             player.unlock_time = datetime.now() + question.wait_duration
