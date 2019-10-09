@@ -45,7 +45,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 # JWT Authentication
-SIMEPLE_JWT = {
+SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50),
 }
 # Application definition
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'questions',
+    'badges',
     'corsheaders',
     'rest_framework',
     # 'rest_framework.authtoken',

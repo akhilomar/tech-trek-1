@@ -14,6 +14,11 @@ from questions.api.serializers import (
     LeaderboardSerializer,
 )
 
+# class Dashboard(views.APIView):
+#     permission_classes = [IsAuthenticated, IsPaid]
+
+    
+
 class GetQuestion(views.APIView):
     permission_classes = [IsAuthenticated, IsPaid]
 
@@ -23,15 +28,28 @@ class GetQuestion(views.APIView):
         
         tz_info = player.unlock_time.tzinfo
         time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
-        print(time_left)
-        if time_left >= 0:
-            return Response({"time_left": time_left})
-        
-        # TODO: add utility function for fetching question.
-        question = Question.objects.get(level=player.current_question)
-        serializer = GetQuestionSerializer(question)
+        q_text = ""
+        if time_left < 0:
+            time_left = 0
+
+            # TODO: add utility function for fetching question.
+            q = Question.objects.get(level=player.current_question)
+            q_text = q.question
+
+        return Response({
+                "username": player.username,
+                "is_paid": player.is_paid,
+                "current_question": player.current_question,
+                "score": player.score,
+                "isTimeLeft": bool(time_left),
+                "detail": {
+                    "question": q_text,
+                    "time_left": time_left,
+                }
+            })
+
         # if serializer.is_valid():
-        return Response(serializer.data)
+        
         # return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
@@ -42,8 +60,14 @@ class GetQuestion(views.APIView):
         time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
 
         if time_left >= 0:
-            return Response({"time_left": time_left})
-        
+            return Response({
+                "isTimeLeft": True,
+                "detail": {
+                    "question": "",
+                    "time_left": time_left,
+                }
+            })
+
         question = Question.objects.get(level=player.current_question)
 
         if request.data['answer'].lower() == question.tech_answer:
@@ -54,7 +78,7 @@ class GetQuestion(views.APIView):
             player.save()
             is_correct = True
 
-        if request.data['answer'].lower() == question.nontech_answer:
+        elif request.data['answer'].lower() == question.nontech_answer:
             player.current_question = player.current_question + 1
             player.score = player.score + 5
             player.unlock_time = datetime.now() + question.wait_duration

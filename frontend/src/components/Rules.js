@@ -14,7 +14,7 @@ class Rules extends Component{
             <div className="rules">
                 <Header />
                 <div>
-                    <h2 className="component-heading text-center">RULES</h2>
+                    <h1 className="component-heading text-center">RULES</h1>
                     <div className="rules-container">
                         <ul className="list-container">
                             <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit recusandae porro non suscipit culpa sapiente excepturi nulla nostrum ipsa, veniam voluptates! Beatae, minus voluptate!</li>
