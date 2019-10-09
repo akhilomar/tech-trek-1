@@ -18,7 +18,7 @@ ReactDOM.render(
 			<Route exact path="/" component={App} />
 			`<Route exact path="/Rules" component={Rules} />
 			<PrivateRoute path="/Dashboard" component={Dashboard} />
-			<PrivateRoute exact path="/Leaderboard" component={Leaderboard} />
+			<Route exact path="/Leaderboard" component={Leaderboard} />
 		</Switch>
 	</Router>,
 	document.getElementById('root')
