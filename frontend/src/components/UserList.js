@@ -17,7 +17,7 @@ class UserList extends React.Component {
       <div className="userlist">
         <div>
           <h1 className="text-center mb-3 component-heading">LEADERBOARD</h1>
-          <Table hover>
+          <Table>
             <thead className="thead-dark">
               <tr>
                 <th className="avatar-column">Avatar</th>

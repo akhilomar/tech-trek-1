@@ -51,7 +51,7 @@ gettingUsername=()=>{
   
     return (
       <div>
-        <Navbar expand="md">
+        <Navbar dark expand="md">
 
           <NavbarBrand href="/">
           <a className="user" href="#"><img src="https://i.pinimg.com/originals/27/47/ed/2747edad39a6a4e9fbcfbf3c53822649.png" alt="" className="nav-avatar"/>{this.state.users}</a></NavbarBrand>

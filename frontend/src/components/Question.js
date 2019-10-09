@@ -7,8 +7,11 @@ class Question extends Component {
             question: ""
         }
     };
-    questionAccess=()=>{
-        const localtoken=localStorage.getItem('logintoken')
+
+ 
+componentDidMount(){
+    console.log('update')
+    const localtoken=localStorage.getItem('logintoken')
         const res= fetch('http://127.0.0.1:8000/questions/',{
             method:'get',
             headers: {'Authorization' : `Bearer ${localtoken}`},
@@ -20,10 +23,6 @@ class Question extends Component {
                question: ques
            })
         }).catch((error)=>{console.log(error)})
-    }
- 
-componentDidUpdate(){
-    this.questionAccess();
 }
     render() {
         return(

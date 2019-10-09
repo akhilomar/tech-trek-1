@@ -200,22 +200,6 @@ body,
   object-fit: cover;
 }
 
-/*HEADER CSS*/
-
-/* .nav{
-    display: flex;
-    justify-content: flex-end;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.nav-list{
-    display: flex;
-    margin-right: 2rem;
-} */
-
 .user {
   display: flex;
   align-items: center;
@@ -339,6 +323,7 @@ tbody {
   overflow-y:scroll;
   font-size: 20px;
   font-weight: bold;
+  color: #fff;
 }
 
 /* width */
@@ -361,10 +346,6 @@ thead, tbody tr {
   width:100%;
   table-layout:fixed;
 }
-
-/* table {
-  width: 400px;
-} */
 
 /* dashboard */
 
@@ -436,6 +417,7 @@ thead, tbody tr {
   border-radius: 50%;
   border: 2px solid blue;
   margin: 4px;
+  cursor: pointer;
 }
 
 /* footer */
@@ -452,6 +434,19 @@ thead, tbody tr {
 }
 
 @media only screen and (max-width: 800px) {
+
+  .rules, .leaderboard, .dashboard, .forum{
+    height: auto;
+    display: flex;
+    color: #fff !important;
+    justify-content: space-between;
+    flex-direction: column;
+    background: url(https://images.unsplash.com/photo-1477516561410-f0b5dd8319e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   .userlist{
     width: 100%;
     padding: 8px;
