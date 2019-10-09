@@ -25,13 +25,26 @@ class GetQuestion(views.APIView):
         time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
         print(time_left)
         if time_left >= 0:
-            return Response({"time_left": time_left})
+            return Response({
+                "isTimeLeft": True,
+                "detail": {
+                    "question": "",
+                    "time_left": time_left,
+                }
+            })
         
         # TODO: add utility function for fetching question.
-        question = Question.objects.get(level=player.current_question)
-        serializer = GetQuestionSerializer(question)
+        q = Question.objects.get(level=player.current_question)
+        return Response({
+                "isTimeLeft": False,
+                "detail": {
+                    "question": q.question,
+                    "time_left": 0,
+                }
+            })
+
         # if serializer.is_valid():
-        return Response(serializer.data)
+        
         # return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
@@ -42,7 +55,13 @@ class GetQuestion(views.APIView):
         time_left = (player.unlock_time - datetime.now(tz_info)).total_seconds()
 
         if time_left >= 0:
-            return Response({"time_left": time_left})
+            return Response({
+                "isTimeLeft": True,
+                "detail": {
+                    "question": "",
+                    "time_left": time_left,
+                }
+            })
         
         question = Question.objects.get(level=player.current_question)
 
