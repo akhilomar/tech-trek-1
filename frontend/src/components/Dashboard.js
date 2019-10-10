@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Header from "./header-footer/header";
 import Footer from "./header-footer/footer";
 import Question from "./Question";
-import { random } from "lodash";
 import Achievements from "./Achievements";
-import Timer from './timer'
+import Timer from "./timer";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -33,9 +32,8 @@ class Dashboard extends Component {
       currQ: "",
       score: "",
       question: "",
-      isTimeLeft:false,
-      remainingTime:0
-
+      isTimeLeft: false,
+      remainingTime: 0
     };
   }
 
@@ -50,20 +48,17 @@ class Dashboard extends Component {
       .then(responseJson => {
         const ques =
           responseJson && responseJson.detail && responseJson.detail.question;
-          
-        if(responseJson.isTimeLeft===true){
+
+        if (responseJson.isTimeLeft === true) {
           this.setState({
-            isTimeLeft:true,
-            remainingTime: responseJson.detail.time_left 
-          })
-            
-        }
-        else{
+            isTimeLeft: true,
+            remainingTime: responseJson.detail.time_left
+          });
+        } else {
           this.setState({
             question: ques
           });
         }
-
       })
       .catch(error => {
         console.log(error);
@@ -88,7 +83,7 @@ class Dashboard extends Component {
     this.setState({ answer: e.target.value });
   };
 
-  answerSubmit = (e) => {
+  answerSubmit = e => {
     e.preventDefault();
     const localtoken = localStorage.getItem("logintoken");
 
@@ -120,20 +115,16 @@ class Dashboard extends Component {
                 responseJson &&
                 responseJson.detail &&
                 responseJson.detail.question;
-              if(responseJson.isTimeLeft===true){
+              if (responseJson.isTimeLeft === true) {
                 this.setState({
-                  isTimeLeft:true,
-                  remainingTime: responseJson.detail.time_left 
-                })
-            
+                  isTimeLeft: true,
+                  remainingTime: responseJson.detail.time_left
+                });
+              } else {
+                this.setState({
+                  question: ques
+                });
               }
-              else{
-              this.setState({
-                question: ques
-              });
-            }
-            
-
             })
             .catch(error => {
               console.log(error);
@@ -157,7 +148,6 @@ class Dashboard extends Component {
             selectedError: ""
           });
           this.getRandomSuccess();
-          
         }
       })
       .catch(error => {
@@ -177,29 +167,23 @@ class Dashboard extends Component {
       .then(response => response.json())
       .then(responseJson => {
         const ques =
-          responseJson &&
-          responseJson.detail &&
-          responseJson.detail.question;
-        if(responseJson.isTimeLeft===true){
+          responseJson && responseJson.detail && responseJson.detail.question;
+        if (responseJson.isTimeLeft === true) {
           this.setState({
-            isTimeLeft:true,
-            remainingTime: responseJson.detail.time_left 
-          })
-      
+            isTimeLeft: true,
+            remainingTime: responseJson.detail.time_left
+          });
+        } else {
+          this.setState({
+            isTimeLeft: false,
+            question: ques
+          });
         }
-        else{
-        this.setState({
-          isTimeLeft: false,
-          question: ques
-        });
-      }
-      
-
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   getRandomSuccess = () => {
     var item = this.state.successMsg[
@@ -219,7 +203,6 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(this.state.remainingTime)
     return (
       <div className="dashboard">
         <Header />
@@ -227,36 +210,34 @@ class Dashboard extends Component {
         <div className="dashboard-content">
           <div className="question-container">
             <div style={{ margin: "auto" }}>
+              <div className="input-group d-inline">
+                {" "}
+                {this.state.isTimeLeft ? (
+                  <Timer
+                    displayQuestion={this.displayQuestion}
+                    time={Math.ceil(this.state.remainingTime)}
+                  />
+                ) : (
+                  <>
+                    <h1 className="font-weight-bold">QUESTION</h1>
+                    <h4 className="text-left">Tier:</h4>
+                    <Question ques={this.state.question} />
+                    <form onSubmit={this.answerSubmit}>
+                      <input
+                        className="answer-block"
+                        type="text"
+                        placeholder="I seek an Answer...."
+                        ref="answer"
+                        onChange={this.onAnswerChange}
+                        required
+                      />
 
-              <div className="input-group d-inline"> {
-              
-              this.state.isTimeLeft ?  <Timer displayQuestion={this.displayQuestion} time={Math.ceil(this.state.remainingTime)}/> : (
-              <>
-                <h1 className="font-weight-bold">QUESTION</h1>
-              <  h4 className="text-left">Tier:</h4>
-                <Question ques={this.state.question} />
-                <form onSubmit={this.answerSubmit}> 
-                <input
-                  className="answer-block"
-                  type="text"
-                  placeholder="I seek an Answer...."
-                  ref="answer"
-                  onChange={this.onAnswerChange} required
-                />
-           
-            
-              
-              <button
-                className="login-btn answer-button"
-               
-              >
-                CHECK
-              </button>
-              </form>
-              </>
-              )}
+                      <button className="login-btn answer-button">CHECK</button>
+                    </form>
+                  </>
+                )}
               </div>
-        
+
               <div style={{ color: "red" }}>{this.state.selectedError}</div>
               <div style={{ color: "green" }}>{this.state.selectedSuccess}</div>
               <br />

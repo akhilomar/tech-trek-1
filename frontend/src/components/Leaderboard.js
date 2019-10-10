@@ -12,7 +12,6 @@ class Leaderboard extends Component {
   }
 
   componentDidMount() {
-    const localtoken = localStorage.getItem("logintoken");
     fetch("http://127.0.0.1:8000/questions/leaderboard/", {
       method: "get"
     })
