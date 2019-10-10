@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -19,7 +19,7 @@ class Header extends React.Component {
       users: ""
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.gettingUsername();
   }
   gettingUsername = () => {
